@@ -590,12 +590,12 @@ ARM Macro Assembler    Page 10
 
 
               00000000 
-Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
-erwork --depend=.\objects\startup_gd32f30x_hd.d -o.\objects\startup_gd32f30x_hd
-.o -I.\RTE\_Portable -I"D:\Keil C51 V9.52\GigaDevice\GD32F30x_DFP\2.0.0\Device\
-Include" -I"D:\Keil C51 V9.52\ARM\CMSIS\Include" --predefine="__UVISION_VERSION
- SETA 527" --predefine="GD32F30X_HD SETA 1" --list=.\listings\startup_gd32f30x_
-hd.lst ..\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_hd.s
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp.sp --apcs=
+interwork --depend=.\objects\startup_gd32f30x_hd.d -o.\objects\startup_gd32f30x
+_hd.o -IC:\Users\Danie\AppData\Local\Arm\Packs\GigaDevice\GD32F30x_DFP\2.0.0\De
+vice\Include --predefine="__UVISION_VERSION SETA 536" --predefine="GD32F30X_HD 
+SETA 1" --list=.\listings\startup_gd32f30x_hd.lst ..\Firmware\CMSIS\GD\GD32F30x
+\Source\ARM\startup_gd32f30x_hd.s
 
 
 

@@ -1,8 +1,7 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 ".\objects\appmain.o"
 ".\objects\midbatter.o"
 ".\objects\midbuzzer.o"
-".\objects\midfont.o"
 ".\objects\midkey.o"
 ".\objects\midlcd.o"
 ".\objects\midled.o"

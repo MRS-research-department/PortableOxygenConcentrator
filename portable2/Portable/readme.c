@@ -1,9 +1,9 @@
 /**
   ******************************************************************************
   * @file    readme.c
-  * @author  Best Team
+  * @author  Medris R&D
   * @version V1.0.0
-  * @date    8-December-2020
+  * @date    1-March-2023
   * @brief   This file provides the rules of the code. 
   ******************************************************************************
   * @attention
@@ -11,20 +11,23 @@
   * THE PRESENT FIRMWARE WHICH IS ONLY FOR INTERNAL USE.SPREAD AND COPY SHOULD
   * NOT BE ALLOWED.
   *
-  * COPYRIGHT 2020 BSET TEAM
+  * COPYRIGHT 2023 Medris R&D
   ******************************************************************************
   */
 
+
+
 /**
   *文件名
-	*文件名全部用小写字母。
+	*文件名内包含的每个单词的首个字母用大写字母，其余使用小写字母。
 	*文件名要使用能表达其功能的单词。
-	*如果名称是由数个单词组成，那么词与词之间用下划线来隔开
+	*如果名称是由数个单词组成，那么词与词之间最好用下划线来隔开。
+	*如果单词有缩写的，要保留能够识别其含义的关键字母。
 	*
 	*变量名
 	*变量名全部用小写字母。
 	*变量名要使用能表达其功能的单词。
-	*如果名称是由数个单词组成，那么词与词之间用下划线来隔开
+	*如果名称是由数个单词组成，那么词与词之间用下划线来隔开。
 	*在下述分类的变量名中首字母要小写。
 	*
 	*函数名
@@ -39,6 +42,25 @@
 	*在enum中声明的枚举型常量全部用大写。
 	*由多个单词组成的名称，单词与单词之间用下划线来划分。
   */
+	
+	
+	/**	
+	*文件前头描述以下注视内容
+	*項目	   	格式/内容
+	*文件名		【格式】	@file	文件名
+	*			【内容】 	记载文件名
+	*			            ※文件名如果不被记入到注释里就不能在文件里显示。
+	*
+	*摘要说明	【格式 】 @brief 摘要说明
+	*			【内容】  表示文件内容的名词
+	*			  		  ※○○功能的文件 etc.
+  */
+	
+
+
+/*=====================================================================================================================*/
+	
+	
 	
 /**	
 	*函数前头记述以下注释内容
@@ -61,19 +83,43 @@
 	*
   */
 	
-/**	
-	*文件前头描述以下注视内容
-	*項目	   	格式/内容
-	*文件名		【格式】	@file	文件名
-	*					【内容】 	记载文件名
-	*					 ※文件名如果不被记入到注释里就不能在文件里显示。
-	*
-	*摘要说明	【格式 】 @brief 摘要说明
-	*					【内容】  表示文件内容的名词
-	*					 ※○○功能的文件 etc.
+	
+/**
+  * @brief  Enables or disables the specified ADC interrupts.
+  * @param [in]  ADCx: where x can be 1, 2 or 3 to select the ADC peripheral.
+  * @param [in] ADC_IT: specifies the ADC interrupt sources to be enabled or disabled. 
+  *   This parameter can be any combination of the following values:
+  *     @arg ADC_IT_EOC: End of conversion interrupt mask
+  *     @arg ADC_IT_AWD: Analog watchdog interrupt mask
+  *     @arg ADC_IT_JEOC: End of injected conversion interrupt mask
+  * @param [in] NewState: new state of the specified ADC interrupts.
+  *   This parameter can be: ENABLE or DISABLE.
+  * @param [out] None
+  * @param [in,out] None
+  * @retval None
   */
+//void ADC_ITConfig(ADC_TypeDef* ADCx, uint16_t ADC_IT, FunctionalState NewState)
+//{
+//  uint8_t itmask = 0;
+//  /* Check the parameters */
+//  assert_param(IS_ADC_ALL_PERIPH(ADCx));
+//  assert_param(IS_FUNCTIONAL_STATE(NewState));
+//  assert_param(IS_ADC_IT(ADC_IT));
+//  /* Get the ADC IT index */
+//  itmask = (uint8_t)ADC_IT;
+//  if (NewState != DISABLE)
+//  {
+//    /* Enable the selected ADC interrupts */
+//    ADCx->CR1 |= itmask;
+//  }
+//  else
+//  {
+//    /* Disable the selected ADC interrupts */
+//    ADCx->CR1 &= (~(uint32_t)itmask);
+//  }
+//}
 	
-	
+/*=====================================================================================================================*/
 	
 	
 /**		
@@ -111,7 +157,7 @@
 *(5) 单目运算符和运算项之间不空格添加空格。
 */				
 				
-				
+/*=====================================================================================================================*/			
 	
 /*中断分配
 中断名	优先级	用途
@@ -135,3 +181,5 @@ C51
 
 */
 
+/******************* (C) COPYRIGHT 2023 Medris R&D *****END OF FILE****/
+	
