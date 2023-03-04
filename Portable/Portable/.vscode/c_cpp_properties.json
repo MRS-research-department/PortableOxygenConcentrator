@@ -3,15 +3,17 @@
         {
             "name": "Protable",
             "includePath": [
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Portable\\BSP",
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Firmware\\CMSIS",
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Firmware\\CMSIS\\GD\\GD32F30x\\Include",
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Firmware\\GD32F30x_standard_peripheral\\Include",
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Portable\\Driver",
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Portable\\Application",
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Firmware\\CMSIS\\GD\\GD32F30x\\Source",
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Firmware\\CMSIS\\GD\\GD32F30x\\Source\\ARM",
-                "c:\\Users\\cyf22\\Desktop\\Portable\\Firmware\\GD32F30x_standard_peripheral\\Source"
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Portable\\BSP",
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Firmware\\CMSIS",
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Firmware\\CMSIS\\GD\\GD32F30x\\Include",
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Firmware\\GD32F30x_standard_peripheral\\Include",
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Portable\\Driver",
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Portable\\Application",
+                "C:\\Keil_v5\\ARM\\ARMCC\\include",
+                "C:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Firmware\\CMSIS\\GD\\GD32F30x\\Source",
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Firmware\\CMSIS\\GD\\GD32F30x\\Source\\ARM",
+                "d:\\Repository\\PortableOxygenConcentrator\\Portable\\Firmware\\GD32F30x_standard_peripheral\\Source"
             ],
             "defines": [
                 "GD32F30X_HD",
