@@ -2,5 +2,4 @@
 #define MIDMOTOR_H
 
 
-
 #endif

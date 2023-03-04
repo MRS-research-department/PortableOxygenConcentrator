@@ -3,169 +3,35 @@
 <pre>
 <h1>礦ision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: μVision V5.36.0.0
-Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: 1 1, 1, LIC=GMZI6-D0C0L-UHL8H-WQ49D-3WTZY-PC2VS
+IDE-Version: μVision V5.27.1.0
+Copyright (C) 2019 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: aaa cyf2210345374@outlook.com, bbb, LIC=585FJ-UTX8U-PCQJ8-3JAA1-3ATNR-DCDXM
  
 Tool Versions:
-Toolchain:       MDK-ARM Plus  Version: 5.36.0.0
-Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+Toolchain:       MDK-ARM Plus  Version: 5.35.0.2
+Toolchain Path:  D:\Keil C51 V9.52\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 7 (build 960)
 Assembler:       Armasm.exe V5.06 update 7 (build 960)
 Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
 Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
-CPU DLL:         SARMCM3.DLL V5.36.0.0
+CPU DLL:         SARMCM3.DLL V5.35.0.2
 Dialog DLL:      DCM.DLL V1.17.3.0
 Target DLL:      CMSIS_AGDI.dll V1.33.0.0
 Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
-D:\Repository\PortableOxygenConcentrator\portable2\Portable\Portable.uvprojx
-Project File Date:  03/01/2023
+D:\Github_Repository\PortableOxygenConcentrator\portable2\Portable\Portable.uvprojx
+Project File Date:  02/18/2023
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil C51 V9.52\ARM\ARMCC\Bin'
 Build target 'Portable'
-compiling MidBuzzer.c...
-Middle\MidBuzzer.c(1): warning:  #1-D: last line of file ends without a newline
-  #include "MidBuzzer.h"
-Middle\MidBuzzer.h(5): warning:  #1-D: last line of file ends without a newline
-  #endif
-Middle\MidBuzzer.c: 2 warnings, 0 errors
-compiling MidBatter.c...
 compiling MidMotor.c...
-Middle\MidMotor.c(1): warning:  #1-D: last line of file ends without a newline
-  #include "MidMotor.h"
-Middle\MidMotor.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-Middle\MidMotor.c: 2 warnings, 0 errors
-compiling MidKey.c...
-Middle\MidKey.c(1): warning:  #1-D: last line of file ends without a newline
-  #include "MidKey.h"
-Middle\MidKey.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-Middle\MidKey.c: 2 warnings, 0 errors
-compiling DriBuzzer.c...
-Driver\DriBuzzer.h(4): warning:  #1295-D: Deprecated declaration Dri_Buzzer_Gpio_Init - give arg types
-  void Dri_Buzzer_Gpio_Init();
-Driver\DriBuzzer.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-Driver\DriBuzzer.c(5): warning:  #1-D: last line of file ends without a newline
-  }
-Driver\DriBuzzer.c: 3 warnings, 0 errors
-compiling DriBatter.c...
-Driver\DriBatter.h(5): warning:  #1295-D: Deprecated declaration Dri_Batter_Gpio_Init - give arg types
-  void Dri_Batter_Gpio_Init();				//电池控制接口初始化
-Driver\DriBatter.h(7): warning:  #1295-D: Deprecated declaration Dri_Batter_Eletric_Display - give arg types
-  void Dri_Batter_Eletric_Display();	//电池电量显示
-Driver\DriBatter.h(9): warning:  #1295-D: Deprecated declaration Dri_Batter_Charge_State - give arg types
-  void Dri_Batter_Charge_State();			//电池充电状态
-Driver\DriBatter.c(37): warning:  #1-D: last line of file ends without a newline
-  }
-Driver\DriBatter.c: 4 warnings, 0 errors
-compiling DriKey.c...
-Driver\DriKey.h(5): warning:  #1295-D: Deprecated declaration Dri_Key_Gpio_Init - give arg types
-  void Dri_Key_Gpio_Init();
-Driver\DriKey.h(7): warning:  #1-D: last line of file ends without a newline
-  #endif
-Driver\DriKey.c(6): warning:  #1-D: last line of file ends without a newline
-  }
-Driver\DriKey.c: 3 warnings, 0 errors
-compiling DriMotor.c...
-Driver\DriMotor.h(4): warning:  #1295-D: Deprecated declaration Dri_Motor_Gpio_Init - give arg types
-  void Dri_Motor_Gpio_Init();
-Driver\DriMotor.h(6): warning:  #1-D: last line of file ends without a newline
-  #endif
-Driver\DriMotor.c(6): warning:  #1-D: last line of file ends without a newline
-  }
-Driver\DriMotor.c: 3 warnings, 0 errors
-compiling DriFont.c...
-Driver\DriFont.h(47): warning:  #1-D: last line of file ends without a newline
-  #endif
-Driver\DriFont.c: 1 warning, 0 errors
-compiling AppMain.c...
-.\Middle\MidLED.h(7): warning:  #1295-D: Deprecated declaration Mid_LED_Init - give arg types
-  void Mid_LED_Init();		//LED初始化
-.\Middle\MidLED.h(9): warning:  #1295-D: Deprecated declaration Mid_LED_Blink - give arg types
-  void Mid_LED_Blink();		//LED灯闪烁
-.\Middle\MidLED.h(11): warning:  #1-D: last line of file ends without a newline
-  #endif
-.\Driver\DriLCD.h(53): warning:  #1295-D: Deprecated declaration Dri_LCD_Gpio_Init - give arg types
-  void Dri_LCD_Gpio_Init();
-.\Driver\DriLCD.h(61): warning:  #1-D: last line of file ends without a newline
-  #endif
-.\Driver\DriFont.h(47): warning:  #1-D: last line of file ends without a newline
-  #endif
-.\Middle\MidLCD.h(9): warning:  #1295-D: Deprecated declaration Mid_LCD_Init - give arg types
-  void Mid_LCD_Init();
-Application\AppMain.c: 7 warnings, 0 errors
-compiling MidLCD.c...
-.\Driver\DriLCD.h(53): warning:  #1295-D: Deprecated declaration Dri_LCD_Gpio_Init - give arg types
-  void Dri_LCD_Gpio_Init();
-.\Driver\DriLCD.h(61): warning:  #1-D: last line of file ends without a newline
-  #endif
-.\Driver\DriFont.h(47): warning:  #1-D: last line of file ends without a newline
-  #endif
-Middle\MidLCD.h(9): warning:  #1295-D: Deprecated declaration Mid_LCD_Init - give arg types
-  void Mid_LCD_Init();
-Middle\MidLCD.c: 4 warnings, 0 errors
-compiling MidLED.c...
-Middle\MidLED.h(7): warning:  #1295-D: Deprecated declaration Mid_LED_Init - give arg types
-  void Mid_LED_Init();		//LED初始化
-Middle\MidLED.h(9): warning:  #1295-D: Deprecated declaration Mid_LED_Blink - give arg types
-  void Mid_LED_Blink();		//LED灯闪烁
-Middle\MidLED.h(11): warning:  #1-D: last line of file ends without a newline
-  #endif
-.\Driver\DriLED.h(13): warning:  #1295-D: Deprecated declaration Dri_LED_Gpio_Init - give arg types
-  void Dri_LED_Gpio_Init();
-Middle\MidLED.c(30): warning:  #1-D: last line of file ends without a newline
-  }
-Middle\MidLED.c: 5 warnings, 0 errors
-compiling DriLED.c...
-Driver\DriLED.h(13): warning:  #1295-D: Deprecated declaration Dri_LED_Gpio_Init - give arg types
-  void Dri_LED_Gpio_Init();
-Driver\DriLED.c: 1 warning, 0 errors
-compiling DriLCD.c...
-Driver\DriLCD.h(53): warning:  #1295-D: Deprecated declaration Dri_LCD_Gpio_Init - give arg types
-  void Dri_LCD_Gpio_Init();
-Driver\DriLCD.h(61): warning:  #1-D: last line of file ends without a newline
-  #endif
-Driver\DriLCD.c: 2 warnings, 0 errors
-compiling gd32f30x_adc.c...
-compiling gd32f30x_crc.c...
-compiling gd32f30x_bkp.c...
-compiling gd32f30x_can.c...
-compiling gd32f30x_ctc.c...
-compiling gd32f30x_dac.c...
-compiling gd32f30x_dbg.c...
-compiling gd32f30x_enet.c...
-compiling gd32f30x_dma.c...
-compiling gd32f30x_exti.c...
-compiling gd32f30x_exmc.c...
-compiling gd32f30x_fmc.c...
-compiling gd32f30x_fwdgt.c...
-assembling startup_gd32f30x_hd.s...
-compiling gd32f30x_gpio.c...
-compiling gd32f30x_misc.c...
-compiling gd32f30x_i2c.c...
-compiling gd32f30x_pmu.c...
-compiling gd32f30x_rtc.c...
-compiling readme.c...
-compiling gd32f30x_rcu.c...
-compiling gd32f30x_sdio.c...
-compiling gd32f30x_it.c...
-compiling gd32f30x_wwdgt.c...
-compiling system_gd32f30x.c...
-compiling gd32f30x_timer.c...
-compiling gd32f30x_usart.c...
-compiling gd32f30x_spi.c...
-compiling gd32f303e_eval.c...
-compiling systick.c...
 linking...
 Program Size: Code=1528 RO-data=336 RW-data=8 ZI-data=2144  
 FromELF: creating hex file...
-".\Objects\Portable.axf" - 0 Error(s), 39 Warning(s).
+".\Objects\Portable.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -175,10 +41,11 @@ Package Vendor: GigaDevice
                 GigaDevice GD32F30x Series Device Support and Examples
 
 <h2>Collection of Component include folders:</h2>
-  C:\Users\Danie\AppData\Local\Arm\Packs\GigaDevice\GD32F30x_DFP\2.0.0\Device\Include
+  .\RTE\_Portable
+  D:\Keil C51 V9.52\GigaDevice\GD32F30x_DFP\2.0.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>
