@@ -16,10 +16,9 @@ extern uint16_t timer5_1ms;
 
 int main(void)
 {
-	    uint8_t a=0;
-		static uint8_t Key4_Pressed = RESET;	
-		static uint8_t Key4_Last_Pressed  = RESET;	
-		uint8_t Key4_Status = RESET;
+		static uint8_t Key4_Pressed = RESET;	   //µ±Ç°°´¼ü×´Ì¬
+		static uint8_t Key4_Last_Pressed  = RESET;	//ÉÏ´Î°´¼ü×´Ì¬
+		uint8_t Key4_Status = RESET;				
 		uint8_t Start_Up = RESET;
 
 		systick_config();	//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½
@@ -29,14 +28,16 @@ int main(void)
 		Key_GPIO_Init();
 		Motor_IIC_Init();
 		Valve_Init();
-
+		uart_init_config();
+	
+	
 		while(1)
 		{
+//			Disp_TimeCNT(5,10,O2_concent);
+			
 			Motor();
 
-			Key4_Status = Key4();
-			
-
+			Key4_Status = Key4();      //½«°´¼üµÄ×´Ì¬¸³¸øKey4_Status
 
 			if(Key4_Status == SET){
 				Key4_Pressed = SET;
@@ -55,31 +56,20 @@ int main(void)
 
 
 			if( Start_Up == 0X01){
-				LCD_ShowString(5, 10, 12, 12, 12, "1");						
+				LCD_ShowString(5, 10, 12, 12, 12, 1);						
 				bit_Valve = 1;
 				motor_send[0] = 60;	
 			}
 			else{
-				LCD_ShowString(5, 10, 12, 12, 12, "0"); 
+				LCD_ShowString(5, 10, 12, 12, 12, 0); 
 				motor_send[0] = 0;
 				bit_Valve = 0;	
-			}
+//			}
 		}
-			
+	}		
 }	
-//			LCD_ShowString(5, 10, 12, 12, 12, "0"); 
-//			motor_send[0] = 0;
-//			for(b=0;b>200;b++) ;
-//			bit_Valve = 0;	
-
-//			LCD_ShowString(5, 10, 12, 12, 12, "1");						
-//			bit_Valve = 1;
-//			for(b=0;b>200;b++) ;
-//			motor_send[0] = 60;	
 			
-//			uint8_t str[] = "HELLO!\r\n";
-//			uint32_t len = sizeof(str)/sizeof(*str);
-//			uart_data_transmit(str,len-1);
+
 
 	
 	

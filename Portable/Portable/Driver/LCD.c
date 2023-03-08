@@ -1,7 +1,7 @@
 #include "LCD.h"
 
 uint16_t	POINT_COLOR = BLUE;	//画笔颜色	默认为黑色
-uint16_t	BACK_COLOR 	= LGRAYBLUE;	//背景颜色	默认为白色
+uint16_t	BACK_COLOR 	= WHITE;	//背景颜色	默认为白色
 
 /**
  * @brief	LCD控制接口初始化
@@ -264,7 +264,7 @@ void LCD_Clear(uint16_t color)
  * @return  void
  */
 
-void LCD_ShowChar(uint16_t x, uint16_t y, char chr, uint8_t size)
+void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t chr, uint8_t size)
 {
     uint8_t temp, t1, t;
     uint8_t csize;		//得到字体一个字符对应点阵集所占的字节数
@@ -359,7 +359,7 @@ void LCD_ShowChar(uint16_t x, uint16_t y, char chr, uint8_t size)
  *
  * @return  void
  */
-void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t size, char *p)
+void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t size, uint8_t *p)
 {
 	uint8_t x0 = x;
 	width += x;
@@ -381,3 +381,32 @@ void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uin
 	}
 }
 
+unsigned int cnttime_old = 999999;
+//累计时间
+void Disp_TimeCNT(unsigned int x,unsigned int y,unsigned int temp)
+{
+
+	  unsigned char disp[6];
+	
+	  temp = temp / 59;
+	
+	  if(temp > 99999)  temp = 99999;
+	
+	  if(cnttime_old != temp )
+		{
+			disp[0] =  temp/10000 + 0x30;
+			disp[1] =  temp%10000/1000 + 0x30;
+			disp[2] =  temp%1000/100 + 0x30;
+			disp[3] =  temp%100/10 + 0x30;			
+			disp[4] =  temp%10 + 0x30;	
+	    disp[5] =  '\0';	
+			
+			LCD_ShowString(x,y,120,12,12,disp);
+//			LCD_ShowString(x,y,120,12,disp,24,0);
+			
+			LCD_ShowChar(262,y,'h',12);
+//			LCD_ShowChar(262,y,'h',24,0);
+		}
+	
+	
+}

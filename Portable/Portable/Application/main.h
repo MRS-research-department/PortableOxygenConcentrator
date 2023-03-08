@@ -8,13 +8,10 @@
 
 #include "LCD.h"
 #include "LED.h"
-#include "uart.h"
 #include "Valve.h"
 #include "Motor.h"
 #include "Key.h"
 #include "Common.h"
-
-
-
+#include "uart.h"
 
 #endif
