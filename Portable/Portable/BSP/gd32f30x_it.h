@@ -44,6 +44,7 @@ OF SUCH DAMAGE.
 #include "LED.h"
 #include "LCD.h"
 #include "Common.h"
+#include "uart.h"
 
 /* function declarations */
 /* this function handles NMI exception */

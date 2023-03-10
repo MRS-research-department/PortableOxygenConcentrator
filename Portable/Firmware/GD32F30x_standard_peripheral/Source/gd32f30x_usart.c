@@ -36,7 +36,7 @@ OF SUCH DAMAGE.
 */
 
 #include "gd32f30x_usart.h"
-
+#include "stdio.h"
 /* USART register bit offset */
 #define GP_GUAT_OFFSET            ((uint32_t)8U)       /* bit offset of GUAT in USART_GP */
 #define CTL3_SCRTNUM_OFFSET       ((uint32_t)1U)       /* bit offset of SCRTNUM in USART_CTL3 */

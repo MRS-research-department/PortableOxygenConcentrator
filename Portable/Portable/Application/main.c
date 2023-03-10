@@ -1,5 +1,5 @@
 #include "main.h"
-
+#include "stdio.h"
 unsigned char	bit_EMC_Started;
 unsigned char 	bit_Valve;				//ï¿½Ð¶Ïµï¿½Å·ï¿½ï¿½Ç·ï¿½ï¿½ï¿??  1ï¿½ï¿½ï¿½ï¿½   0ï¿½Ø±ï¿½
 unsigned int	Valswith = 0;			//ï¿½Ð¶ï¿½ï¿½Ç¾ï¿½Ñ¹ï¿½ï¿½ï¿½Ç¼ï¿½Ñ¹  0ï¿½Ç¹ï¿½Í¬Ê±ï¿½ï¿½   1ï¿½Çµï¿½ï¿½ï¿½Ê±ï¿½ï¿½
@@ -10,16 +10,20 @@ unsigned int	Valvetime1;				//ï¿½Ó³ï¿½Ê±ï¿½ï¿½
 unsigned char 	Valve_step;
 unsigned int 	Valvetime2;				//ï¿½Ø±Õµï¿½Å·ï¿½ï¿½ï¿½ï¿½?
 
+uint8_t arr1[3]={1,2,3};
+unsigned char back_O2_gear = 0;     //ÑõÆøµç´Å·§µµÎ»,
+unsigned char back_O2_mode = 0;     //ÖÆÑõ»ú¹¤×÷Ä£Ê½
+
 unsigned char 	bit_RUN = 0;
 
 extern uint16_t timer5_1ms;
 
 int main(void)
 {
-		static uint8_t Key4_Pressed = RESET;	   //µ±Ç°°´¼ü×´Ì¬
-		static uint8_t Key4_Last_Pressed  = RESET;	//ÉÏ´Î°´¼ü×´Ì¬
-		uint8_t Key4_Status = RESET;				
-		uint8_t Start_Up = RESET;
+//		static uint8_t Key4_Pressed = RESET;	   //µ±Ç°°´¼ü×´Ì¬
+//		static uint8_t Key4_Last_Pressed  = RESET;	//ÉÏ´Î°´¼ü×´Ì¬
+//		uint8_t Key4_Status = RESET;				
+//		uint8_t Start_Up = RESET;
 
 		systick_config();	//ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ê¹ï¿½ï¿½
 		LED_Init();
@@ -28,46 +32,45 @@ int main(void)
 		Key_GPIO_Init();
 		Motor_IIC_Init();
 		Valve_Init();
-		uart_init_config();
-	
+		uart_config();
 	
 		while(1)
 		{
-//			Disp_TimeCNT(5,10,O2_concent);
+			UART0_Send_O2CMD();
+						
 			
-			Motor();
+//			Motor();
 
-			Key4_Status = Key4();      //½«°´¼üµÄ×´Ì¬¸³¸øKey4_Status
+//			Key4_Status = Key4();      //½«°´¼üµÄ×´Ì¬¸³¸øKey4_Status
 
-			if(Key4_Status == SET){
-				Key4_Pressed = SET;
+//			if(Key4_Status == SET){
+//				Key4_Pressed = SET;
 
-				if((Key4_Last_Pressed  == RESET) && (Key4_Pressed == SET) )// °´¼ü°´ÏÂÒ»Ë²¼ä
-				{
-					Key4_Last_Pressed  = Key4_Pressed;
-					Start_Up ^= 0X01;
-				}			
-			}
-			else{
-				Key4_Last_Pressed = RESET;
-				Key4_Pressed = RESET;
+//				if((Key4_Last_Pressed  == RESET) && (Key4_Pressed == SET) )// °´¼ü°´ÏÂÒ»Ë²¼ä
+//				{
+//					Key4_Last_Pressed  = Key4_Pressed;
+//					Start_Up ^= 0X01;
+//				}			
+//			}
+//			else{
+//				Key4_Last_Pressed = RESET;
+//				Key4_Pressed = RESET;
 
-			}
+//			}
 
 
-			if( Start_Up == 0X01){
-				LCD_ShowString(5, 10, 12, 12, 12, 1);						
-				bit_Valve = 1;
-				motor_send[0] = 60;	
-			}
-			else{
-				LCD_ShowString(5, 10, 12, 12, 12, 0); 
-				motor_send[0] = 0;
-				bit_Valve = 0;	
+//			if( Start_Up == 0X01){
+//				LCD_ShowString(5, 10, 12, 12, 12, 1);						
+//				bit_Valve = 1;
+//				motor_send[0] = 60;	
+//			}
+//			else{
+//				LCD_ShowString(5, 10, 12, 12, 12, 0); 
+//				motor_send[0] = 0;
+//				bit_Valve = 0;	
 //			}
 		}
-	}		
-}	
+	}			
 			
 
 

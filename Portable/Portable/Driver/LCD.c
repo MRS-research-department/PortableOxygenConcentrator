@@ -401,10 +401,10 @@ void Disp_TimeCNT(unsigned int x,unsigned int y,unsigned int temp)
 			disp[4] =  temp%10 + 0x30;	
 	    disp[5] =  '\0';	
 			
-			LCD_ShowString(x,y,120,12,12,disp);
+			LCD_ShowString(x,y,12,12,12,disp);
 //			LCD_ShowString(x,y,120,12,disp,24,0);
 			
-			LCD_ShowChar(262,y,'h',12);
+			LCD_ShowChar(12,y,'h',12);
 //			LCD_ShowChar(262,y,'h',24,0);
 		}
 	

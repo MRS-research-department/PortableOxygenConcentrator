@@ -38,7 +38,6 @@ OF SUCH DAMAGE.
 #include "gd32f30x_it.h"
 
 
-
 /*
     \brief      this function handles NMI exception
     \param[in]  none
@@ -173,7 +172,7 @@ void TIMER1_IRQHandler(void)
 				LED(1);	
 			}
 		}			
-		
+				
 	/*-----------------------Valve-------------------------------*/
 		if(bit_Valve)
 		{
