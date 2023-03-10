@@ -10,7 +10,7 @@ unsigned int	Valvetime1;				//ï¿½Ó³ï¿½Ê±ï¿½ï¿½
 unsigned char 	Valve_step;
 unsigned int 	Valvetime2;				//ï¿½Ø±Õµï¿½Å·ï¿½ï¿½ï¿½ï¿½?
 
-uint8_t arr1[3]={1,2,3};
+
 unsigned char back_O2_gear = 0;     //ÑõÆøµç´Å·§µµÎ»,
 unsigned char back_O2_mode = 0;     //ÖÆÑõ»ú¹¤×÷Ä£Ê½
 
@@ -34,10 +34,14 @@ int main(void)
 		Valve_Init();
 		uart_config();
 	
+		printf("a usart transmit test example!");
+		uint8_t test[3] = {'1', '2', '3'};
+		UART_Write(test, 3);
+
 		while(1)
-		{
-			UART0_Send_O2CMD();
-						
+		{			
+			
+
 			
 //			Motor();
 

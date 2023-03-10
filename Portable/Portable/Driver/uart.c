@@ -41,70 +41,89 @@ void uart_config(void)
     usart_enable(USART0);//使能USART
 	
 	/*开启USART0中断*/
-	nvic_irq_enable(USART0_IRQn,0,0);
-	usart_interrupt_enable(USART0,USART_INT_TBE);
-	usart_interrupt_enable(USART0, USART_INT_RBNE); 
-
+	nvic_irq_enable(USART0_IRQn,1,1);
+	usart_interrupt_enable(USART0,USART_INT_TBE);  
+	usart_interrupt_enable(USART0, USART_INT_RBNE);	
 }
 
 
-
-void USART0_IRQHandler(void)
+/* retarget the C library printf function to the USART */
+int fputc(int ch, FILE *f)
 {
-    if(RESET != usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE))//发送
-	{
-		/* receive data */
-			USART0RX_Buffer[UART0_Rxcount] = usart_data_receive(USART0);		
-			if(UART0_Rxcount ==14)
-			{
-				usart_interrupt_disable(USART0,USART_INT_RBNE);
-			}
-	}
-	if(RESET != usart_interrupt_flag_get(USART0,USART_INT_FLAG_TBE))
-	{
-		/* transmit data */
-		usart_data_transmit(USART0,USART0RX_Buffer[UART0_Txcount++]);
-		if(UART0_Txcount > 7)
-		{
-			usart_interrupt_disable(USART0,USART_INT_TBE);
-		}
-	}
-} 
-
-void uart_data_transmit(uint8_t arr[], uint32_t length) 
-{
-	uint32_t i;
-	for(i=0; i<length; i++) 
-	{
-		usart_data_transmit(USART0, arr[i]);
-		while (usart_flag_get(USART0, USART_FLAG_TBE)== RESET);
-	}
-	delay_1ms(1000);
+    usart_data_transmit(USART0, (uint8_t)ch);
+    while(RESET == usart_flag_get(USART0, USART_FLAG_TBE));
+    return ch;
 }
 
 
-void UART0_Send_O2CMD(void)
+/*USART串口中断*/
+//void USART0_IRQHandler(void)
+//{
+//    if(RESET != usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE))//发送
+//	{
+//		/* receive data */
+//			USART0RX_Buffer[UART0_Rxcount] = usart_data_receive(USART0);		
+//			if(UART0_Rxcount ==14)
+//			{
+//				usart_interrupt_disable(USART0,USART_INT_RBNE);
+//			}
+//	}
+//	if(RESET != usart_interrupt_flag_get(USART0,USART_INT_FLAG_TBE))
+//	{
+//		/* transmit data */
+//		usart_data_transmit(USART0,USART0RX_Buffer[UART0_Txcount++]);
+//		if(UART0_Txcount > 7)
+//		{
+//			usart_interrupt_disable(USART0,USART_INT_TBE);
+//		}
+//	}
+//} 
+
+
+void UART_Write(uint8_t *pData, uint32_t dataLen)
 {
-	unsigned char temp;
-	unsigned char i;
-	uint32_t len;
+    uint8_t i;  
+    for(i = 0; i < dataLen; i++)
+    {
+        usart_data_transmit(USART0, pData[i]);                  // 发送一个字节数据
+        while(RESET == usart_flag_get(USART0, USART_FLAG_TBE)); // 发送完成判断
+    }
+}
 
-	USART0TX_Buffer[0] = 0x16;
-	USART0TX_Buffer[1] = 0x09;
-	USART0TX_Buffer[2] = 0x01;
-	USART0TX_Buffer[3] = O2_gear;    //即脉冲 5 档，对应单次供气体积：5x12=60mL。
-	USART0TX_Buffer[4] = O2_mode;    //供氧模式（传感器关闭 0、脉冲 1、直供 2）
-	USART0TX_Buffer[5] = O2_number;  //每分钟供气次数
-	USART0TX_Buffer[6] = 0x0C; //灵敏度
 
-	temp = 0;     //清零
-	for(i=0; i<7; i++)   //计算校验位
-	{
-	temp += USART0TX_Buffer[i];  //注 temp 为 8 位无符号型
-	}
-	USART0TX_Buffer[7] = 0x00 - temp;
-	len = sizeof(USART0TX_Buffer) / sizeof(*(USART0TX_Buffer));
-	uart_data_transmit(USART0TX_Buffer, len);
+//void uart_data_transmit(uint8_t arr[], uint32_t length) 
+//{
+//	uint32_t i;
+//	for(i=0; i<length; i++) 
+//	{
+//		usart_data_transmit(USART0, arr[i]);
+//		while (usart_flag_get(USART0, USART_FLAG_TBE)== RESET);
+//	}
+//}
+
+
+//void UART0_Send_O2CMD(void)
+//{
+//	unsigned char temp;
+//	unsigned char i;
+//	uint32_t len;
+
+//	USART0TX_Buffer[0] = 0x16;
+//	USART0TX_Buffer[1] = 0x09;
+//	USART0TX_Buffer[2] = 0x01;
+//	USART0TX_Buffer[3] = O2_gear;    //即脉冲 5 档，对应单次供气体积：5x12=60mL。
+//	USART0TX_Buffer[4] = O2_mode;    //供氧模式（传感器关闭 0、脉冲 1、直供 2）
+//	USART0TX_Buffer[5] = O2_number;  //每分钟供气次数
+//	USART0TX_Buffer[6] = 0x0C; //灵敏度
+
+//	temp = 0;     //清零
+//	for(i=0; i<7; i++)   //计算校验位
+//	{
+//	temp += USART0TX_Buffer[i];  //注 temp 为 8 位无符号型
+//	}
+//	USART0TX_Buffer[7] = 0x00 - temp;
+//	len = sizeof(USART0TX_Buffer) / sizeof(*(USART0TX_Buffer));
+//	uart_data_transmit(USART0TX_Buffer, len);
 
 	
 //  USART0TX_Buffer[8] = '\0';
@@ -117,7 +136,7 @@ void UART0_Send_O2CMD(void)
 //	UART0_SendByte(USART0TX_Buffer[5] );	
 //	UART0_SendByte(USART0TX_Buffer[6] );			
 //	UART0_SendByte(USART0TX_Buffer[7] );		
-}
+//}
 
 
 /*--------------读氧气传感器数据-------------------------------------------------*/

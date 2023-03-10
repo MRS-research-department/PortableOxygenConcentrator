@@ -142,6 +142,26 @@ void SysTick_Handler(void)
 }
 
 
+/*!
+    \brief      this function handles USART RBNE interrupt request and TBE interrupt request
+    \param[in]  none
+    \param[out] none
+    \retval     none
+*/
+void USART0_IRQHandler(void)
+{
+    unsigned char data;
+    if(RESET != usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE))
+    {
+        data = usart_data_receive(USART0);
+            
+        usart_data_transmit(USART0, (uint8_t)data);
+        while(RESET == usart_flag_get(USART0, USART_FLAG_TBE));//∑¢ÀÕÕÍ≥…≈–∂œ
+    }
+}
+
+
+
 unsigned int  t1_cnt1;
 unsigned int  t1_cnt2;
 unsigned int  t1_cnt3;
