@@ -1,4 +1,18 @@
 #include "ST7789.h"
+/*
+函数名称 : lcd_draw_point
+函数功能 : lcd画一个点
+输入参数 : x,y	--> 画点坐标，color --> 点的颜色
+返回值  	 : 无
+备注		 : 无
+**************************************************************/
+void lcd_draw_point(uint16_t x, uint16_t y, uint16_t color)
+{
+	  LCD_Address_Set(x, y, x, y);
+	  LCD_Write_Data(color >> 8);
+    LCD_Write_Data(color & 0x00ff); 
+}
+
 
 void LCD_Init(void)		//LCD屏初始化
 {
@@ -117,6 +131,5 @@ void LCD_Init(void)		//LCD屏初始化
 	LCD_Clear(BACK_COLOR);
 	/*打开显示*/
 	LCD_DisplayOn();
-	
-	 
+		 
 }

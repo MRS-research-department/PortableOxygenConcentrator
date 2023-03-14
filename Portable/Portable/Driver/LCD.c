@@ -254,97 +254,73 @@ void LCD_Clear(uint16_t color)
 	LCD_DisplayOn();		/* 打开显示 */
 }
 
-/**
- * @brief	显示一个ASCII码字符
- *
- * @param   x,y		显示起始坐标
- * @param   chr		需要显示的字符
- * @param   size	字体大小(支持16/24/32号字体)
- *
- * @return  void
- */
-
-void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t chr, uint8_t size)
-{
-    uint8_t temp, t1, t;
-    uint8_t csize;		//得到字体一个字符对应点阵集所占的字节数
-    uint16_t colortemp;
-    uint8_t sta;
-
-    chr = chr - ' '; //得到偏移后的值（ASCII字库是从空格开始取模，所以-' '就是对应字符的字库）
-
-    if((x > (LCD_Width - size / 2)) || (y > (LCD_Height - size)))	return;
-
-    LCD_Address_Set(x, y, x + size / 2 - 1, y + size - 1);//(x,y,x+8-1,y+16-1)
-
-    if((size == 16) || (size == 32) )	//16和32号字体
-    {
-        csize = (size / 8 + ((size % 8) ? 1 : 0)) * (size / 2);
-
-        for(t = 0; t < csize; t++)
-        {
-            if(size == 16)temp = asc2_1608[chr][t];	//调用1608字体
-
-            else if(size == 32)temp = asc2_3216[chr][t];	//调用3216字体
-
-            else return;			//没有的字库
-
-            for(t1 = 0; t1 < 8; t1++)
-            {
-                if(temp & 0x80) colortemp = POINT_COLOR;
-
-                else colortemp = BACK_COLOR;
-
-                LCD_Write_HalfWord(colortemp);
-                temp <<= 1;
-            }
-        }
-    }
-
-	else if  (size == 12)	//12号字体
-	{
-        csize = (size / 8 + ((size % 8) ? 1 : 0)) * (size / 2);
-
-        for(t = 0; t < csize; t++)
-        {
-            temp = asc2_1206[chr][t];
-
-            for(t1 = 0; t1 < 6; t1++)
-            {
-                if(temp & 0x80) colortemp = POINT_COLOR;
-
-                else colortemp = BACK_COLOR;
-
-                LCD_Write_HalfWord(colortemp);
-                temp <<= 1;
-            }
-        }
-    }
+/**************************************************************
+函数名称 : lcd_show_char
+函数功能 : lcd显示一个字符
+输入参数 : x,y:起始坐标
+		   num:要显示的字符:" "--->"~"
+		   size:字体大小
+		   mode:叠加方式(1)还是非叠加方式(0)
+返回值  	 : 无
+备注		 : 无
+**************************************************************/
+void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t num, uint8_t size, uint8_t mode)
+{  							  
+  uint16_t temp, t1, t;
+	uint16_t y0 = y;
+	uint16_t csize = ((size / 8) + ((size % 8) ? 1 : 0)) * (size/2);	/* 得到字体一个字符对应点阵集所占的字节数	 */
 	
-    else if(size == 24)		//24号字体
-    {
-        csize = (size * 16) / 8;
+ 	num = num - ' ';	/* 得到偏移后的值（ASCII字库是从空格开始取模，所以-' '就是对应字符的字库） */
+	
+	for(t = 0; t < csize; t++)	/*遍历打印所有像素点到LCD */
+	{   
+     	if(16 == size)
+		{
+			temp = asc2_1608[num][t];	/* 调用1608字体 */
+     	}
+		else if(24 == size)
+		{
+			temp = asc2_2412[num][t];	/* 调用2412字体 */
+		}
+		else if(32 == size)
+		{
+			temp = asc2_3216[num][t];	/* 调用3216数码管字体 */
+		}
+		else
+		{	
+			return;		/* 没有找到对应的字库 */
+		}
+		for(t1 = 0; t1 < 8; t1++)	/* 打印一个像素点到液晶 */
+		{			    
+			if(temp & 0x80)
+			{
+				lcd_draw_point(x, y, POINT_COLOR);
+			}
+			else if(0 == mode)
+			{
+				lcd_draw_point(x, y, BACK_COLOR);
+			}
+			temp <<= 1;
+			y++;
+			
+			if(y >= LCD_Height)
+			{
+				return;		/* 超区域了 */
+			}
+			if((y - y0) == size)
+			{
+				y = y0;
+				x++;
+//				if(x >= LCD_Width)
+//				{
+//					return;	/* 超区域了 */
+//				}
+				break;
+			}
+		}  	 
+	}  	    	   	 	  
+} 
 
-        for(t = 0; t < csize; t++)
-        {
-            temp = asc2_2412[chr][t];
-
-            if(t % 2 == 0)sta = 8;
-
-            else sta = 4;
-
-            for(t1 = 0; t1 < sta; t1++)
-            {
-                if(temp & 0x80) colortemp = POINT_COLOR;
-
-                else colortemp = BACK_COLOR;
-
-                LCD_Write_HalfWord(colortemp);
-                temp <<= 1;
-            }
-        }
-    }
-}
 
 
 
@@ -359,54 +335,65 @@ void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t chr, uint8_t size)
  *
  * @return  void
  */
-void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t size, uint8_t *p)
-{
-	uint8_t x0 = x;
+/**************************************************************
+函数名称 : lcd_show_string
+函数功能 : lcd显示字符串
+输入参数 : x,y:起始坐标
+		   width,height：区域大小
+		   *p:字符串起始地址
+		   size:字体大小
+		   mode:叠加方式(1)还是非叠加方式(0)
+返回值  	 : 无
+备注		 : 无
+**************************************************************/
+void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *p, uint8_t size, uint8_t mode)
+{         
+	uint16_t x0 = x;
 	width += x;
 	height += y;
-
-	while((*p <= '~') && (*p >= ' ')) //判断是不是非法字符!
-	{
-		if(x >= width)
-		{
-				x = x0;
-				y += size;
-		}
-
-		if(y >= height)break; //退出
-
-		LCD_ShowChar(x, y, *p, size);
-		x += size / 2;
-		p++;
-	}
+	
+    while((*p<='~') && (*p>=' '))		/* 判断是不是非法字符! */
+    {       
+        if(x >= width)
+				{
+					x = x0; 
+					y += size;
+				}
+				
+				 if(y >= height)
+				 {	
+					break;
+				 }
+        LCD_ShowChar(x, y, *p, size, mode);
+        x += size/2;
+        p++;
+    }  
 }
 
-unsigned int cnttime_old = 999999;
-//累计时间
-void Disp_TimeCNT(unsigned int x,unsigned int y,unsigned int temp)
-{
 
-	  unsigned char disp[6];
+//unsigned int Concentration_old = 999;
+//浓度
+void Disp_Concentration(unsigned int x,unsigned int y,unsigned int temp)
+{
 	
-	  temp = temp / 59;
+	  unsigned char disp[5];
 	
-	  if(temp > 99999)  temp = 99999;
+	  if(temp > 999) temp = 999;
 	
-	  if(cnttime_old != temp )
-		{
-			disp[0] =  temp/10000 + 0x30;
-			disp[1] =  temp%10000/1000 + 0x30;
-			disp[2] =  temp%1000/100 + 0x30;
-			disp[3] =  temp%100/10 + 0x30;			
-			disp[4] =  temp%10 + 0x30;	
-	    disp[5] =  '\0';	
+	  //if(Concentration_old != temp )
+		//{
+		//	 Concentration_old = temp;
+			 
+			if(temp/100 == 0)
+				disp[0] = ' '; 
+			else
+			 disp[0] = temp/100 + 0x30; 
 			
-			LCD_ShowString(x,y,12,12,12,disp);
-//			LCD_ShowString(x,y,120,12,disp,24,0);
+			 disp[1] = temp%100/10 +0x30;  
+			 disp[2] = ' '; 
+			 disp[3] = '%';	
+			 disp[4] =  '\0';
 			
-			LCD_ShowChar(12,y,'h',12);
-//			LCD_ShowChar(262,y,'h',24,0);
-		}
-	
-	
+			 LCD_ShowString(x,y,120,12,disp,24,0);
+	//	}	
 }

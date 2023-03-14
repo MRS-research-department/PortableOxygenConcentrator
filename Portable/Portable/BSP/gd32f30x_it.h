@@ -69,4 +69,6 @@ void SysTick_Handler(void);
 void TIMER1_IRQHandler(void);
 
 void TIMER5_IRQHandler(void);
+
+void USART0_IRQHandler(void);
 #endif /* GD32F30X_IT_H */

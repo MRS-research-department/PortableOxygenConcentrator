@@ -41,7 +41,7 @@ extern		uint16_t	BACK_COLOR;
 
 /*
 	LCD_RST:	PC10
-	LCD_CS:	PC11
+	LCD_CS:		PC11
 	LCD_DC:		PA15
 */
 #define	LCD_CS(n)			(n?gpio_bit_set(GPIOC,GPIO_PIN_11):gpio_bit_reset(GPIOC,GPIO_PIN_11));//LCD CS
@@ -60,9 +60,9 @@ void LCD_Write_HalfWord(uint16_t da);
 void LCD_DisplayOn(void);
 void LCD_DisplayOff(void);
 void LCD_Address_Set(uint16_t x1,uint16_t y,uint16_t x2,uint16_t y2);
-void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t chr, uint8_t size);
-void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t size, uint8_t *p);
+void LCD_ShowChar(uint16_t x, uint16_t y, uint8_t num, uint8_t size, uint8_t mode);
+void LCD_ShowString(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint8_t *p, uint8_t size, uint8_t mode);
 void LCD_Clear(uint16_t color);
-void Disp_TimeCNT(unsigned int x,unsigned int y,unsigned int temp);
+void Disp_Concentration(unsigned int x,unsigned int y,unsigned int temp);
 #endif
 

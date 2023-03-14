@@ -10,7 +10,7 @@ extern unsigned char UART0_timeover;   //uart0超时时间
 extern unsigned char UART0_RxSuccess;  //uart0接收成功
 
 
-extern unsigned char USART0TX_Buffer[8];
+extern unsigned char USART0TX_Buffer[15];
 extern unsigned char USART0RX_Buffer[15];
 
 extern unsigned char O2_gear;
@@ -19,11 +19,11 @@ extern unsigned int  O2_concent;     //氧气浓度
 extern unsigned char O2_number; 
 
 
-void uart_config(void);
+void USART0_config(void);
+void USART0_IRQHandler(void);
+void UART0_SendByte(unsigned char tdata);
+void UART0_PutString(char *str);
 void UART0_Send_O2CMD(void);
 void UART0_O2_para(void);
-void USART0_IRQHandler(void);
-void uart_data_transmit(uint8_t arr[], uint32_t length);
-int fputc(int ch, FILE *f);
-void UART_Write(uint8_t *pData, uint32_t dataLen);
+
 #endif

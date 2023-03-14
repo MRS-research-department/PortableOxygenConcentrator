@@ -5,37 +5,57 @@ uint16_t	BACK_COLOR	=	WHITE;		//背景颜色		默认白色
 
 void Dri_LCD_Gpio_Init(void)
 {
-	spi_parameter_struct	spi_init_strcut;
+//	spi_parameter_struct spi_init_struct;
+	
 	rcu_periph_clock_enable(RCU_GPIOA);
+	rcu_periph_clock_enable(RCU_GPIOB);
 	rcu_periph_clock_enable(RCU_GPIOC);
 	rcu_periph_clock_enable(RCU_SPI0);
 
-	//
-	gpio_init(GPIOA,GPIO_MODE_AF_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_5 | GPIO_PIN_7);
-	gpio_init(GPIOC,GPIO_MODE_OUT_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_10 | GPIO_PIN_11);
-	gpio_init(GPIOA,GPIO_MODE_OUT_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_15);
+	rcu_periph_clock_enable(RCU_AF);
 
-	//SPI参数配置
-	spi_init_strcut.trans_mode						=SPI_TRANSMODE_FULLDUPLEX;
-	spi_init_strcut.device_mode						=SPI_MASTER;
-	spi_init_strcut.frame_size						=SPI_FRAMESIZE_8BIT;
-	spi_init_strcut.clock_polarity_phase	=SPI_CK_PL_HIGH_PH_1EDGE;
-	spi_init_strcut.nss										=SPI_NSS_SOFT;
-	spi_init_strcut.prescale 							=SPI_PSC_8;
-	spi_init_strcut.endian								=SPI_ENDIAN_MSB;
-	spi_init(SPI0,&spi_init_strcut);
+/* 使用SW下载,不使用JTAG下载,管脚用作其它功能 */
+	gpio_pin_remap_config(GPIO_SWJ_SWDPENABLE_REMAP, ENABLE);
 
-	//
-	spi_crc_polynomial_set(SPI0,8);
-	//使能SPI0
-	spi_enable(SPI0);
+	gpio_init(GPIOA, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ,GPIO_PIN_5);// LCD DC
+	gpio_init(GPIOA, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ,GPIO_PIN_7);// LCD SDA
+	gpio_init(GPIOA, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ,GPIO_PIN_15);//LCD SCL
+	gpio_init(GPIOB, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ,GPIO_PIN_3);//LCD BL
+	gpio_init(GPIOC, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ,GPIO_PIN_10);//LCD RES
+	gpio_init(GPIOC, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_11);//LCD CS
 
-	LCD_RST(1);
-	delay_1ms(100);
-	LCD_RST(0);
-	delay_1ms(100);
-	LCD_RST(1);
+//	gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ,GPIO_PIN_5);// LCD SCL
+//	gpio_init(GPIOA, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ,GPIO_PIN_7);// LCD SDA
+//		 /* SPI参数配置*/
+//	spi_init_struct.device_mode          = SPI_MASTER;
+//	spi_init_struct.trans_mode           = SPI_TRANSMODE_FULLDUPLEX;
+//	spi_init_struct.frame_size           = SPI_FRAMESIZE_8BIT;
+//	spi_init_struct.clock_polarity_phase = SPI_CK_PL_HIGH_PH_1EDGE;
+//	spi_init_struct.nss                  = SPI_NSS_SOFT;
+//	spi_init_struct.prescale             = SPI_PSC_8 ;
+//	spi_init_struct.endian               = SPI_ENDIAN_MSB;
+//		
+//	spi_init(SPI0, &spi_init_struct);
+//		
+//	spi_crc_polynomial_set(SPI0,8);
+//		
+//	spi_enable(SPI0);/*使能SPI0*/
 }
+
+/*
+函数名称 : lcd_draw_point
+函数功能 : lcd画一个点
+输入参数 : x,y	--> 画点坐标，color --> 点的颜色
+返回值  	 : 无
+备注		 : 无
+**************************************************************/
+void Dri_LCD_Draw_Point(uint16_t x, uint16_t y, uint16_t color)
+{
+	Dri_LCD_Address_Set(x, y, x, y);
+	Dri_LCD_Write_Data(color >> 8);
+    Dri_LCD_Write_Data(color & 0x00ff); 
+}
+
 
 /**
  * @brief	LCD底层SPI发送数据函数
@@ -46,11 +66,25 @@ void Dri_LCD_Gpio_Init(void)
  */
 void Dri_LCD_SPI_Send(uint8_t data)
 {
-	uint8_t retry=0;
-	spi_i2s_data_transmit(SPI0,data);  
-	while(spi_i2s_flag_get(SPI0,SPI_FLAG_TBE)==RESET){
-	};
-	for(retry=0;retry<10;retry++); 
+	LCD_CS(0);
+	
+	for(int i = 0; i < 8; i++)
+	{	  
+		LCD_SCL(0);
+		
+		if(data & 0x80){
+			LCD_SDA(1);
+		}
+		else{
+			LCD_SDA(0);			
+		}
+		
+		LCD_SCL(1);
+		
+		data <<= 1;  
+	}
+	
+	LCD_CS(1); 
 }
 
 /**
@@ -104,7 +138,7 @@ void Dri_LCD_Write_HalfWord(uint16_t da)
  */
 void Dri_LCD_DisplayOn(void)
 {
-	LCD_PWR(1);
+	LCD_CS(1);
 }
 
 /**
@@ -116,7 +150,7 @@ void Dri_LCD_DisplayOn(void)
  */
 void Dri_LCD_DisplayOff(void)
 {
-	LCD_PWR(0);
+	LCD_CS(0);
 }
 
 /**
@@ -173,7 +207,7 @@ void Dri_LCD_Address_Set(uint16_t x1,uint16_t y1,uint16_t x2,uint16_t y2)
 void Dri_LCD_Init(void)	
 {
 	Dri_LCD_Gpio_Init();  
-	LCD_PWR(0);
+	LCD_CS(0);
 	LCD_RST(0);
 	delay_1ms(120);
 	LCD_RST(1);	
@@ -279,6 +313,6 @@ void Dri_LCD_Init(void)
 	Dri_LCD_Clear(WHITE);
 
 	/* Display on */
-	LCD_PWR(1);
+	LCD_CS(1);
 	delay_1ms(200);
 }

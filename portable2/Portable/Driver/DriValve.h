@@ -1,5 +1,5 @@
-#ifndef Valve_H
-#define Valve_H
+#ifndef DRIVALVE_H
+#define DRIVALVE_H
 
 #include "gd32f30x_gpio.h"
 #include "Systick.h"

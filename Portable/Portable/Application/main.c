@@ -26,22 +26,27 @@ int main(void)
 //		uint8_t Start_Up = RESET;
 
 		systick_config();	//����ʱ��ʹ��
+	
+	
+	
 		LED_Init();
 		LCD_Init();
 	
 		Key_GPIO_Init();
 		Motor_IIC_Init();
 		Valve_Init();
-		uart_config();
+		USART0_config();
 	
-		printf("a usart transmit test example!");
-		uint8_t test[3] = {'1', '2', '3'};
-		UART_Write(test, 3);
 
 		while(1)
 		{			
 			
+			Disp_Concentration(5,10,O2_concent);
+			UART0_Send_O2CMD();
 
+			UART0_O2_para();
+			
+			
 			
 //			Motor();
 
@@ -74,7 +79,7 @@ int main(void)
 //				bit_Valve = 0;	
 //			}
 		}
-	}			
+}			
 			
 
 

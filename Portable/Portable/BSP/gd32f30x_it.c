@@ -148,19 +148,6 @@ void SysTick_Handler(void)
     \param[out] none
     \retval     none
 */
-void USART0_IRQHandler(void)
-{
-    unsigned char data;
-    if(RESET != usart_interrupt_flag_get(USART0, USART_INT_FLAG_RBNE))
-    {
-        data = usart_data_receive(USART0);
-            
-        usart_data_transmit(USART0, (uint8_t)data);
-        while(RESET == usart_flag_get(USART0, USART_FLAG_TBE));//发送完成判断
-    }
-}
-
-
 
 unsigned int  t1_cnt1;
 unsigned int  t1_cnt2;
@@ -191,7 +178,20 @@ void TIMER1_IRQHandler(void)
 			else
 				LED(1);	
 			}
-		}			
+		}	
+
+   /*----------串口0超时----氧传感器------------------*/
+			if(UART0_timeover <99)
+			  UART0_timeover++;
+			else
+			{
+				UART0_timeover = 0;
+				
+				UART0_Rxcount   = 0;
+				UART0_RxSuccess = 0;
+
+				O2_concent      = 0;
+			}		
 				
 	/*-----------------------Valve-------------------------------*/
 		if(bit_Valve)

@@ -7,7 +7,8 @@
 #include "stdio.h"
 #include "MidLED.h"
 #include "MidLCD.h"
-
+#include "MidKey.h"
+#include "MidMotor.h"
 
 
 #endif

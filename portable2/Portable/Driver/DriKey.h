@@ -1,7 +1,10 @@
 #ifndef DIRKEY_H
 #define DIRKEY_H
 
+#include "gd32f30x_gpio.h"
 
-void Dri_Key_Gpio_Init();
+void Dir_Key_Init(void);
+
+FlagStatus Dri_Key4(void);
 
 #endif

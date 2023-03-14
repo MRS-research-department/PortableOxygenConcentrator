@@ -22,16 +22,156 @@ Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
 D:\Github_Repository\PortableOxygenConcentrator\portable2\Portable\Portable.uvprojx
-Project File Date:  02/18/2023
+Project File Date:  03/14/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil C51 V9.52\ARM\ARMCC\Bin'
 Build target 'Portable'
-compiling MidMotor.c...
-linking...
-Program Size: Code=1528 RO-data=336 RW-data=8 ZI-data=2144  
-FromELF: creating hex file...
-".\Objects\Portable.axf" - 0 Error(s), 0 Warning(s).
+compiling DriValve.c...
+Driver\DriValve.c(6): warning:  #223-D: function "rcu_periph_clock_enable" declared implicitly
+  	rcu_periph_clock_enable(RCU_GPIOA);
+Driver\DriValve.c(6): error:  #20: identifier "RCU_GPIOA" is undefined
+  	rcu_periph_clock_enable(RCU_GPIOA);
+Driver\DriValve.c(7): error:  #20: identifier "RCU_GPIOB" is undefined
+  	rcu_periph_clock_enable(RCU_GPIOB);
+Driver\DriValve.c(8): error:  #20: identifier "RCU_GPIOC" is undefined
+  	rcu_periph_clock_enable(RCU_GPIOC);
+Driver\DriValve.c(11): error:  #20: identifier "RCU_AF" is undefined
+  	rcu_periph_clock_enable(RCU_AF);
+Driver\DriValve.c(16): warning:  #223-D: function "gpio_init" declared implicitly
+  	gpio_init(GPIOB,GPIO_MODE_OUT_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_1 | GPIO_PIN_2);	
+Driver\DriValve.c(16): error:  #20: identifier "GPIOB" is undefined
+  	gpio_init(GPIOB,GPIO_MODE_OUT_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_1 | GPIO_PIN_2);	
+Driver\DriValve.c(16): error:  #20: identifier "GPIO_MODE_OUT_PP" is undefined
+  	gpio_init(GPIOB,GPIO_MODE_OUT_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_1 | GPIO_PIN_2);	
+Driver\DriValve.c(16): error:  #20: identifier "GPIO_OSPEED_50MHZ" is undefined
+  	gpio_init(GPIOB,GPIO_MODE_OUT_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_1 | GPIO_PIN_2);	
+Driver\DriValve.c(16): error:  #20: identifier "GPIO_PIN_1" is undefined
+  	gpio_init(GPIOB,GPIO_MODE_OUT_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_1 | GPIO_PIN_2);	
+Driver\DriValve.c(16): error:  #20: identifier "GPIO_PIN_2" is undefined
+  	gpio_init(GPIOB,GPIO_MODE_OUT_PP,GPIO_OSPEED_50MHZ,GPIO_PIN_1 | GPIO_PIN_2);	
+Driver\DriValve.c(22): error:  #20: identifier "timer_parameter_struct" is undefined
+      timer_parameter_struct timer_initpara;			//定义时基单元初始化结构体
+Driver\DriValve.c(24): warning:  #223-D: function "rcu_periph_clock_enable" declared implicitly
+      rcu_periph_clock_enable(RCU_TIMER1);				//使能更新事件中断
+Driver\DriValve.c(24): error:  #20: identifier "RCU_TIMER1" is undefined
+      rcu_periph_clock_enable(RCU_TIMER1);				//使能更新事件中断
+Driver\DriValve.c(27): warning:  #223-D: function "timer_deinit" declared implicitly
+      timer_deinit(TIMER1);
+Driver\DriValve.c(27): error:  #20: identifier "TIMER1" is undefined
+      timer_deinit(TIMER1);
+Driver\DriValve.c(30): warning:  #223-D: function "timer_struct_para_init" declared implicitly
+      timer_struct_para_init(&timer_initpara);
+Driver\DriValve.c(34): error:  #20: identifier "TIMER_COUNTER_EDGE" is undefined
+      timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;//CNT计数对齐模式
+Driver\DriValve.c(35): error:  #20: identifier "TIMER_COUNTER_UP" is undefined
+      timer_initpara.counterdirection  = TIMER_COUNTER_UP;	//CNT寄存器计数方向
+Driver\DriValve.c(37): error:  #20: identifier "TIMER_CKDIV_DIV1" is undefined
+      timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;	/* DTS时间分频值*/
+Driver\DriValve.c(38): warning:  #223-D: function "timer_init" declared implicitly
+      timer_init(TIMER1, &timer_initpara);
+Driver\DriValve.c(40): warning:  #223-D: function "timer_interrupt_flag_clear" declared implicitly
+      timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);//清除timer中断标志位
+Driver\DriValve.c(40): error:  #20: identifier "TIMER_INT_FLAG_UP" is undefined
+      timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);//清除timer中断标志位
+Driver\DriValve.c(41): warning:  #223-D: function "timer_interrupt_enable" declared implicitly
+      timer_interrupt_enable(TIMER1, TIMER_INT_UP);					//timer1中断使能
+Driver\DriValve.c(41): error:  #20: identifier "TIMER_INT_UP" is undefined
+      timer_interrupt_enable(TIMER1, TIMER_INT_UP);					//timer1中断使能
+Driver\DriValve.c(42): warning:  #223-D: function "timer_enable" declared implicitly
+      timer_enable(TIMER1);																	//使能timer1
+Driver\DriValve.c(44): warning:  #223-D: function "nvic_priority_group_set" declared implicitly
+  	nvic_priority_group_set(NVIC_PRIGROUP_PRE1_SUB3);
+Driver\DriValve.c(44): error:  #20: identifier "NVIC_PRIGROUP_PRE1_SUB3" is undefined
+  	nvic_priority_group_set(NVIC_PRIGROUP_PRE1_SUB3);
+Driver\DriValve.c(45): warning:  #223-D: function "nvic_irq_enable" declared implicitly
+      nvic_irq_enable(TIMER1_IRQn, 1, 1);										/* Timer5中断设置，抢占优先级0，子优先级0 */
+Driver\DriValve.c(45): error:  #20: identifier "TIMER1_IRQn" is undefined
+      nvic_irq_enable(TIMER1_IRQn, 1, 1);										/* Timer5中断设置，抢占优先级0，子优先级0 */
+Driver\DriValve.c(51): error:  #20: identifier "timer_parameter_struct" is undefined
+      timer_parameter_struct timer_initpara;			//定义时基单元初始化结构体
+Driver\DriValve.c(53): warning:  #223-D: function "rcu_periph_clock_enable" declared implicitly
+      rcu_periph_clock_enable(RCU_TIMER5);				//使能更新事件中断
+Driver\DriValve.c(53): error:  #20: identifier "RCU_TIMER5" is undefined
+      rcu_periph_clock_enable(RCU_TIMER5);				//使能更新事件中断
+Driver\DriValve.c(56): warning:  #223-D: function "timer_deinit" declared implicitly
+      timer_deinit(TIMER5);
+Driver\DriValve.c(56): error:  #20: identifier "TIMER5" is undefined
+      timer_deinit(TIMER5);
+Driver\DriValve.c(58): warning:  #223-D: function "timer_struct_para_init" declared implicitly
+      timer_struct_para_init(&timer_initpara);
+Driver\DriValve.c(62): error:  #20: identifier "TIMER_COUNTER_EDGE" is undefined
+      timer_initpara.alignedmode       = TIMER_COUNTER_EDGE;		//CNT计数对齐模式
+Driver\DriValve.c(65): error:  #20: identifier "TIMER_CKDIV_DIV1" is undefined
+      timer_initpara.clockdivision     = TIMER_CKDIV_DIV1;		/* DTS时间分频值*/
+Driver\DriValve.c(66): warning:  #223-D: function "timer_init" declared implicitly
+      timer_init(TIMER5, &timer_initpara);
+Driver\DriValve.c(68): warning:  #223-D: function "timer_interrupt_flag_clear" declared implicitly
+      timer_interrupt_flag_clear(TIMER5, TIMER_INT_FLAG_UP);		//清除timer中断标志位
+Driver\DriValve.c(68): error:  #20: identifier "TIMER_INT_FLAG_UP" is undefined
+      timer_interrupt_flag_clear(TIMER5, TIMER_INT_FLAG_UP);		//清除timer中断标志位
+Driver\DriValve.c(69): warning:  #223-D: function "timer_interrupt_enable" declared implicitly
+      timer_interrupt_enable(TIMER5, TIMER_INT_UP);				//timer1中断使能
+Driver\DriValve.c(69): error:  #20: identifier "TIMER_INT_UP" is undefined
+      timer_interrupt_enable(TIMER5, TIMER_INT_UP);				//timer1中断使能
+Driver\DriValve.c(70): warning:  #223-D: function "timer_enable" declared implicitly
+      timer_enable(TIMER5);																	//使能timer1
+Driver\DriValve.c(72): warning:  #223-D: function "nvic_priority_group_set" declared implicitly
+  	nvic_priority_group_set(NVIC_PRIGROUP_PRE2_SUB2);
+Driver\DriValve.c(72): error:  #20: identifier "NVIC_PRIGROUP_PRE2_SUB2" is undefined
+  	nvic_priority_group_set(NVIC_PRIGROUP_PRE2_SUB2);
+Driver\DriValve.c(73): warning:  #223-D: function "nvic_irq_enable" declared implicitly
+      nvic_irq_enable(TIMER5_IRQn, 0, 0);							/* Timer5中断设置，抢占优先级0，子优先级0 */
+Driver\DriValve.c(73): error:  #20: identifier "TIMER5_IRQn" is undefined
+      nvic_irq_enable(TIMER5_IRQn, 0, 0);							/* Timer5中断设置，抢占优先级0，子优先级0 */
+Driver\DriValve.c(78): warning:  #223-D: function "RCU_Config" declared implicitly
+  	RCU_Config();
+Driver\DriValve.c(79): warning:  #223-D: function "GPIO_config" declared implicitly
+  	GPIO_config();
+Driver\DriValve.c: 22 warnings, 28 errors
+compiling MidLCD.c...
+.\Driver\DriLCD.h(59): warning:  #1295-D: Deprecated declaration Dri_LCD_Gpio_Init - give arg types
+  void Dri_LCD_Gpio_Init();
+.\Driver\DriLCD.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif
+.\Driver\DriFont.h(47): warning:  #1-D: last line of file ends without a newline
+  #endif
+Middle\MidLCD.c(173): error:  #20: identifier "O2_concent" is undefined
+  	Mid_Disp_Concentration(5,10,O2_concent);
+Middle\MidLCD.c(174): warning:  #1-D: last line of file ends without a newline
+  }
+Middle\MidLCD.c: 4 warnings, 1 error
+compiling AppMain.c...
+.\Middle\MidLED.h(7): warning:  #1295-D: Deprecated declaration Mid_LED_Init - give arg types
+  void Mid_LED_Init();		//LED初始化
+.\Middle\MidLED.h(9): warning:  #1295-D: Deprecated declaration Mid_LED_Blink - give arg types
+  void Mid_LED_Blink();		//LED灯闪烁
+.\Middle\MidLED.h(11): warning:  #1-D: last line of file ends without a newline
+  #endif
+.\Driver\DriLCD.h(59): warning:  #1295-D: Deprecated declaration Dri_LCD_Gpio_Init - give arg types
+  void Dri_LCD_Gpio_Init();
+.\Driver\DriLCD.h(68): warning:  #1-D: last line of file ends without a newline
+  #endif
+.\Driver\DriFont.h(47): warning:  #1-D: last line of file ends without a newline
+  #endif
+.\Middle\MidKey.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif
+.\Middle\MidMotor.h(4): warning:  #1295-D: Deprecated declaration MidMotor - give arg types
+  void MidMotor();
+Application\AppMain.c(18): warning:  #223-D: function "LCD_ShowString" declared implicitly
+  				LCD_ShowString(5, 10, 12, 12, 12, 1);						
+Application\AppMain.c(19): error:  #20: identifier "bit_Valve" is undefined
+  				bit_Valve = 1;
+Application\AppMain.c(20): error:  #20: identifier "motor_send" is undefined
+  				motor_send[0] = 60;	
+Application\AppMain.c(24): warning:  #223-D: function "LCD_ShowString" declared implicitly
+  				LCD_ShowString(5, 10, 12, 12, 12, 0); 
+Application\AppMain.c(25): error:  #20: identifier "motor_send" is undefined
+  				motor_send[0] = 0;
+Application\AppMain.c(26): error:  #20: identifier "bit_Valve" is undefined
+  				bit_Valve = 0;	
+Application\AppMain.c: 10 warnings, 4 errors
+".\Objects\Portable.axf" - 33 Error(s), 36 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -45,6 +185,7 @@ Package Vendor: GigaDevice
   D:\Keil C51 V9.52\GigaDevice\GD32F30x_DFP\2.0.0\Device\Include
 
 <h2>Collection of Component Files used:</h2>
+Target not created.
 Build Time Elapsed:  00:00:01
 </pre>
 </body>
